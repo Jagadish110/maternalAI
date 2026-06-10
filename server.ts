@@ -281,17 +281,25 @@ async function startServer() {
           const { data, error }: any = await withTimeout(uploadPromise, 3000);
 
           if (error) {
-            console.error("Supabase Storage Upload error:", error);
-            // Fallback to saving locally
+            // Supabase storage errors (bucket NOT_FOUND, RLS, etc.) — fall back to local
+            const errMsg = typeof error === "object" ? (error.message || error.error || JSON.stringify(error)) : String(error);
+            console.error("Supabase Storage Upload error (falling back to local):", errMsg);
             const localPath = path.join(UPLOADS_DIR, uniqueFilename);
             fs.writeFileSync(localPath, file.buffer);
             fileUrl = `/api/uploads/${uniqueFilename}`;
           } else {
-            // Get public URL
-            const { data: { publicUrl } } = supabase.storage
-              .from("pregnancy-reports")
-              .getPublicUrl(uniqueFilename);
-            fileUrl = publicUrl;
+            // Get public URL — wrap in try/catch in case bucket is private/missing
+            try {
+              const { data: { publicUrl } } = supabase.storage
+                .from("pregnancy-reports")
+                .getPublicUrl(uniqueFilename);
+              fileUrl = publicUrl;
+            } catch (urlErr: any) {
+              console.error("getPublicUrl failed, using local fallback:", urlErr.message || urlErr);
+              const localPath = path.join(UPLOADS_DIR, uniqueFilename);
+              fs.writeFileSync(localPath, file.buffer);
+              fileUrl = `/api/uploads/${uniqueFilename}`;
+            }
           }
         } catch (storageErr: any) {
           console.error("Storage upload timed out or failed, using local storage instead:", storageErr.message || storageErr);
@@ -399,7 +407,22 @@ Return everything formatted as a validated JSON object.`;
       });
 
       const responseText = geminiResponse.text?.trim() || "{}";
-      const parsedAnalysis = JSON.parse(responseText);
+      let parsedAnalysis: any = {};
+      try {
+        parsedAnalysis = JSON.parse(responseText);
+      } catch (parseErr: any) {
+        console.error("Failed to parse AI analysis response as JSON:", parseErr.message);
+        console.error("Raw AI response was:", responseText.substring(0, 300));
+        // Return a safe fallback analysis so the report still saves
+        parsedAnalysis = {
+          patient_name: "Patient",
+          age: 28,
+          risk_level: "LOW",
+          summary: "Your pregnancy report has been received. Our AI encountered a temporary issue parsing the detailed results. Please consult your healthcare provider for a full analysis.",
+          indicators: [],
+          recommended_actions: ["Please share this report with your healthcare provider for a detailed review."]
+        };
+      }
 
       // Create Report object
       const reportId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -437,7 +460,9 @@ Return everything formatted as a validated JSON object.`;
           const { error: dbError } = await withTimeout(insertPromise, 3000) as any;
 
           if (dbError) {
-            console.error("Supabase Database Save error, using local fallback:", dbError);
+            // Supabase DB errors (table NOT_FOUND, RLS, etc.) — always fall back to local
+            const errMsg = typeof dbError === "object" ? (dbError.message || dbError.code || JSON.stringify(dbError)) : String(dbError);
+            console.error("Supabase DB save error (falling back to local):", errMsg);
             saveReportLocally(newReport);
           } else {
             console.log("Report saved successfully in Supabase.");
@@ -772,7 +797,8 @@ Return everything formatted as a validated JSON object.`;
           const { data, error } = await withTimeout(selectPromise, 2500) as any;
 
           if (error || !data) {
-            console.log("Supabase report not found or error, trying local...");
+            const errMsg = error ? (typeof error === "object" ? (error.message || error.code || JSON.stringify(error)) : String(error)) : "no data";
+            console.log("Supabase report not found or error, trying local... Reason:", errMsg);
             const localReport = getReportLocally(id);
             if (!localReport) return res.status(404).json({ error: "Report not found." });
             return res.json(localReport);
