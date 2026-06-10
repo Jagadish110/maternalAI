@@ -1,0 +1,6 @@
+{
+  "name": "MaternaAI",
+  "description": "An AI-powered pregnancy report analyzer that detects health risks and finds nearby gynecologists.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
