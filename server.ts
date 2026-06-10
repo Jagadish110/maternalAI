@@ -247,12 +247,13 @@ async function startServer() {
 
       console.log(`Analyzing file: ${file.originalname} (mimetype: ${file.mimetype}) near ${location}`);
 
-      // 1. Save file. We can upload to Supabase if configured, or save locally.
+      // 1. Save file to local disk (reliable, no external dependency on Supabase Storage bucket).
+      //    Report metadata is still persisted to Supabase DB below.
       let fileUrl = "";
       const supabase = getSupabaseClient();
       const uniqueFilename = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}-${file.originalname}`;
 
-      // Normalize mimeType to ensure correct forwarding to Gemini
+      // Normalize mimeType to ensure correct forwarding to AI
       let mimeType = file.mimetype;
       if (file.originalname.toLowerCase().endsWith(".docx")) {
         mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
@@ -268,50 +269,18 @@ async function startServer() {
         }
       }
 
-      if (supabase) {
-        try {
-          // Upload to 'pregnancy-reports' bucket with 3 second timeout
-          const uploadPromise = supabase.storage
-            .from("pregnancy-reports")
-            .upload(uniqueFilename, file.buffer, {
-              contentType: mimeType,
-              upsert: true,
-            });
-
-          const { data, error }: any = await withTimeout(uploadPromise, 3000);
-
-          if (error) {
-            // Supabase storage errors (bucket NOT_FOUND, RLS, etc.) — fall back to local
-            const errMsg = typeof error === "object" ? (error.message || error.error || JSON.stringify(error)) : String(error);
-            console.error("Supabase Storage Upload error (falling back to local):", errMsg);
-            const localPath = path.join(UPLOADS_DIR, uniqueFilename);
-            fs.writeFileSync(localPath, file.buffer);
-            fileUrl = `/api/uploads/${uniqueFilename}`;
-          } else {
-            // Get public URL — wrap in try/catch in case bucket is private/missing
-            try {
-              const { data: { publicUrl } } = supabase.storage
-                .from("pregnancy-reports")
-                .getPublicUrl(uniqueFilename);
-              fileUrl = publicUrl;
-            } catch (urlErr: any) {
-              console.error("getPublicUrl failed, using local fallback:", urlErr.message || urlErr);
-              const localPath = path.join(UPLOADS_DIR, uniqueFilename);
-              fs.writeFileSync(localPath, file.buffer);
-              fileUrl = `/api/uploads/${uniqueFilename}`;
-            }
-          }
-        } catch (storageErr: any) {
-          console.error("Storage upload timed out or failed, using local storage instead:", storageErr.message || storageErr);
-          const localPath = path.join(UPLOADS_DIR, uniqueFilename);
-          fs.writeFileSync(localPath, file.buffer);
-          fileUrl = `/api/uploads/${uniqueFilename}`;
-        }
-      } else {
-        // Save locally
+      // Always save locally — avoids Supabase Storage bucket NOT_FOUND errors.
+      // If you want Supabase Storage, create the 'pregnancy-reports' bucket first
+      // and replace SUPABASE_SERVICE_ROLE_KEY with the actual service role key.
+      try {
         const localPath = path.join(UPLOADS_DIR, uniqueFilename);
         fs.writeFileSync(localPath, file.buffer);
         fileUrl = `/api/uploads/${uniqueFilename}`;
+        console.log(`File saved locally: ${localPath}`);
+      } catch (fsErr: any) {
+        console.error("Failed to save file locally:", fsErr.message);
+        // Non-fatal: continue without file URL
+        fileUrl = "";
       }
 
       // 2. Call Gemini for analysis
