@@ -49,13 +49,13 @@ export default function DoctorCard({ id = "doctor-card", doctor }: DoctorCardPro
       id={id}
       className={`relative bg-white rounded-2xl p-5 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col justify-between border-2 ${
         doctor.aiRecommended
-          ? "border-[#c85a6a] ring-1 ring-[#c85a6a]/20"
+          ? "border-[#EB1367] ring-1 ring-[#EB1367]/20"
           : "border-gray-100"
       }`}
     >
       {/* AI Recommended Badge */}
       {doctor.aiRecommended && (
-        <div className="absolute -top-3 left-4 flex items-center gap-1.5 bg-[#c85a6a] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md">
+        <div className="absolute -top-3 left-4 flex items-center gap-1.5 bg-[#EB1367] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md">
           <span>✨</span> AI Recommended
         </div>
       )}
@@ -66,7 +66,7 @@ export default function DoctorCard({ id = "doctor-card", doctor }: DoctorCardPro
           <div
             className={`w-12 h-12 rounded-xl font-bold flex items-center justify-center shrink-0 text-sm ${
               doctor.aiRecommended
-                ? "bg-[#fdf4f5] text-[#c85a6a]"
+                ? "bg-[#FFF2F6] text-[#EB1367]"
                 : "bg-blue-50 text-blue-600"
             }`}
           >
@@ -90,8 +90,8 @@ export default function DoctorCard({ id = "doctor-card", doctor }: DoctorCardPro
 
         {/* AI Reason */}
         {doctor.aiRecommended && doctor.aiReason && (
-          <div className="mb-3 p-2.5 bg-[#fdf4f5] rounded-xl border border-[#fbdad2]">
-            <p className="text-[11px] text-[#c85a6a] font-medium leading-normal">
+          <div className="mb-3 p-2.5 bg-[#FFF2F6] rounded-xl border border-[#FFCCD8]">
+            <p className="text-[11px] text-[#EB1367] font-medium leading-normal">
               🤖 <strong>AI says:</strong> {doctor.aiReason}
             </p>
           </div>
@@ -140,7 +140,7 @@ export default function DoctorCard({ id = "doctor-card", doctor }: DoctorCardPro
           rel="noopener noreferrer"
           className={`flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold shadow-sm transition-all duration-200 ${
             doctor.aiRecommended
-              ? "bg-[#c85a6a] hover:bg-[#b04b5a] text-white"
+              ? "bg-[#EB1367] hover:bg-[#D0105C] text-white"
               : "bg-blue-600 hover:bg-blue-700 text-white"
           }`}
         >

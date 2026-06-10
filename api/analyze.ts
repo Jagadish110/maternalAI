@@ -136,6 +136,54 @@ function parseForm(req: VercelRequest): Promise<{ fields: formidable.Fields; fil
   });
 }
 
+function normalizeReport(report: any) {
+  if (!report) return report;
+  
+  // 1. Normalize summary
+  if (!report.summary || report.summary === "No summary generated.") {
+    const raw = report.raw_analysis || {};
+    report.summary = raw.summary || raw.plain_language_summary || raw.plainLanguageSummary || "No summary generated.";
+  }
+  
+  // 2. Normalize indicators
+  if (!report.indicators || report.indicators.length === 0) {
+    const raw = report.raw_analysis || {};
+    if (raw.indicators && raw.indicators.length > 0) {
+      report.indicators = raw.indicators;
+    } else if (raw.key_health_indicators) {
+      const abnormalList: string[] = [];
+      if (Array.isArray(raw.abnormal_values)) {
+        raw.abnormal_values.forEach((v: any) => abnormalList.push(String(v).toLowerCase()));
+      } else if (raw.abnormal_values && typeof raw.abnormal_values === "object") {
+        Object.entries(raw.abnormal_values).forEach(([k, v]) => {
+          abnormalList.push(String(k).toLowerCase());
+          abnormalList.push(String(v).toLowerCase());
+        });
+      }
+      
+      report.indicators = Object.entries(raw.key_health_indicators).map(([key, val]) => {
+        const parameter = key
+          .split(/[_-]/)
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ");
+        
+        const isAbnormal = abnormalList.some((abVal: string) => 
+          abVal.includes(key.toLowerCase()) || 
+          abVal.includes(parameter.toLowerCase())
+        );
+        
+        return {
+          parameter,
+          value: String(val),
+          status: isAbnormal ? "abnormal" : "normal"
+        };
+      });
+    }
+  }
+  
+  return report;
+}
+
 // ─── Handler ─────────────────────────────────────────────────────────────────
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -269,7 +317,7 @@ Return everything formatted as a validated JSON object.`;
     const reportId =
       Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15);
-    const newReport = {
+    const newReport = normalizeReport({
       id: reportId,
       patient_name: parsedAnalysis.patient_name || "Patient",
       age: parsedAnalysis.age || 28,
@@ -283,7 +331,7 @@ Return everything formatted as a validated JSON object.`;
       raw_analysis: parsedAnalysis,
       file_url: fileUrl,
       created_at: new Date().toISOString(),
-    };
+    });
 
     // Always keep in-memory copy
     inMemoryReports.set(newReport.id, newReport);

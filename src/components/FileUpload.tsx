@@ -89,8 +89,8 @@ export default function FileUpload({ onFileSelect, selectedFile }: FileUploadPro
           selectedFile
             ? "border-green-300 bg-green-50/20"
             : isDragActive
-            ? "border-[#c85a6a] bg-[#fdf4f5]/50 scale-[1.01]"
-            : "border-gray-200 hover:border-[#c85a6a] hover:bg-[#fdf4f5]/20 cursor-pointer"
+            ? "border-[#EB1367] bg-[#FFF2F6]/50 scale-[1.01]"
+            : "border-gray-200 hover:border-[#EB1367] hover:bg-[#FFF2F6]/20 cursor-pointer"
         }`}
       >
         {selectedFile ? (
@@ -132,7 +132,7 @@ export default function FileUpload({ onFileSelect, selectedFile }: FileUploadPro
           </div>
         ) : (
           <div className="flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-[#fdf4f5] flex items-center justify-center mb-4 text-[#c85a6a] border border-[#fdf4f5] shadow-xs animate-float">
+            <div className="w-16 h-16 rounded-2xl bg-[#FFF2F6] flex items-center justify-center mb-4 text-[#EB1367] border border-[#FFF2F6] shadow-xs animate-float">
               <Upload className="w-8 h-8" />
             </div>
 
@@ -145,7 +145,7 @@ export default function FileUpload({ onFileSelect, selectedFile }: FileUploadPro
 
             <button
               type="button"
-              className="inline-flex items-center gap-2 bg-[#c85a6a] hover:bg-[#b04b5a] text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-xs hover:shadow-md transition-all duration-200"
+              className="inline-flex items-center gap-2 bg-[#EB1367] hover:bg-[#D0105C] text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-xs hover:shadow-md transition-all duration-200"
               id="btn-browse-files"
             >
               Browse Files

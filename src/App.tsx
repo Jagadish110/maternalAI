@@ -37,12 +37,12 @@ function Header({ user, onSignOut }: { user: any; onSignOut: () => void }) {
     <header className="bg-[#fefaf6]/80 backdrop-blur-md border-b border-[#f3e9df] sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-10 h-10 rounded-xl bg-[#c85a6a] hover:bg-[#b04b5a] flex items-center justify-center text-white shadow-sm transition-all duration-300 group-hover:scale-105">
+          <div className="w-10 h-10 rounded-xl bg-[#EB1367] hover:bg-[#D0105C] flex items-center justify-center text-white shadow-sm transition-all duration-300 group-hover:scale-105">
             <Heart className="w-5 h-5 fill-white" />
           </div>
           <div>
-            <span className="font-display font-bold text-xl text-gray-800 tracking-tight">MaternaAI</span>
-            <span className="ml-1.5 px-2 py-0.5 rounded-full bg-[#fdf4f5] text-[10px] font-bold text-[#c85a6a] align-middle border border-[#fbdad2]">PREGNANCY CARE</span>
+            <span className="font-display font-bold text-xl text-gray-800 tracking-tight">PreCare</span>
+            <span className="ml-1.5 px-2 py-0.5 rounded-full bg-[#FFF2F6] text-[10px] font-bold text-[#EB1367] align-middle border border-[#FFCCD8]">PREGNANCY CARE</span>
           </div>
         </Link>
         
@@ -50,9 +50,9 @@ function Header({ user, onSignOut }: { user: any; onSignOut: () => void }) {
           {user && (
             <div className="flex items-center gap-3 border-r border-[#f3e9df] pr-4">
               {avatarUrl ? (
-                <img src={avatarUrl} alt="Avatar" className="w-8 h-8 rounded-full border border-[#fbdad2] shadow-xs" referrerPolicy="no-referrer" />
+                <img src={avatarUrl} alt="Avatar" className="w-8 h-8 rounded-full border border-[#FFCCD8] shadow-xs" referrerPolicy="no-referrer" />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-[#fdf4f5] text-[#c85a6a] border border-[#fbdad2] flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-full bg-[#FFF2F6] text-[#EB1367] border border-[#FFCCD8] flex items-center justify-center font-bold">
                   {email ? email[0].toUpperCase() : "U"}
                 </div>
               )}
@@ -70,12 +70,12 @@ function Header({ user, onSignOut }: { user: any; onSignOut: () => void }) {
           {user ? (
             <button
               onClick={onSignOut}
-              className="px-3 py-1.5 rounded-lg border border-[#f3e9df] hover:border-[#c85a6a] hover:bg-[#fdf4f5] text-gray-600 hover:text-[#c85a6a] font-bold transition-all text-xs cursor-pointer shadow-xs"
+              className="px-3 py-1.5 rounded-lg border border-[#f3e9df] hover:border-[#EB1367] hover:bg-[#FFF2F6] text-gray-600 hover:text-[#EB1367] font-bold transition-all text-xs cursor-pointer shadow-xs"
             >
               Sign Out
             </button>
           ) : (
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fdf4f5] text-[#c85a6a] font-bold border border-[#fbdad2]">
+            <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FFF2F6] text-[#EB1367] font-bold border border-[#FFCCD8]">
               <ShieldCheck className="w-3.5 h-3.5" /> Secure Storage
             </span>
           )}
@@ -234,15 +234,15 @@ function LandingView() {
     return (
       <div className="max-w-xl mx-auto px-4 py-20 flex flex-col items-center justify-center text-center">
         <div className="relative mb-8">
-          <div className="w-20 h-20 rounded-full border-4 border-[#fdf4f5] border-t-[#c85a6a] animate-spin" />
-          <Heart className="w-8 h-8 text-[#c85a6a] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fill-current animate-pulse" />
+          <div className="w-20 h-20 rounded-full border-4 border-[#FFF2F6] border-t-[#EB1367] animate-spin" />
+          <Heart className="w-8 h-8 text-[#EB1367] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fill-current animate-pulse" />
         </div>
         <h2 className="text-2xl font-serif font-bold text-gray-800 mb-2">Analyzing Pregnancy Biomarkers</h2>
         <p className="text-amber-800/80 max-w-sm text-center text-sm md:text-base font-medium min-h-[3rem] transition-colors duration-300">
           {analyticSteps[statusStep]}
         </p>
         <div className="w-56 bg-[#f3e9df] h-1.5 rounded-full mt-6 overflow-hidden">
-          <div className="bg-gradient-to-r from-[#c85a6a] to-[#e07a5f] h-1.5 rounded-full animate-pulse w-3/4 mx-auto" />
+          <div className="bg-gradient-to-r from-[#EB1367] to-[#e07a5f] h-1.5 rounded-full animate-pulse w-3/4 mx-auto" />
         </div>
       </div>
     );
@@ -258,11 +258,11 @@ function LandingView() {
       
       {/* Intro section */}
       <div className="text-center max-w-3xl mx-auto mb-12 relative z-10">
-        <span className="text-[11px] uppercase font-bold tracking-widest text-[#c85a6a] bg-[#fdf4f5] px-3.5 py-1.5 rounded-full border border-[#fbdad2] inline-block mb-4">
+        <span className="text-[11px] uppercase font-bold tracking-widest text-[#EB1367] bg-[#FFF2F6] px-3.5 py-1.5 rounded-full border border-[#FFCCD8] inline-block mb-4">
           🌸 Medical-Grade Pregnancy Wellness Scanner
         </span>
         <h1 className="font-serif font-bold text-4xl md:text-5xl text-gray-800 tracking-tight leading-tight mb-4">
-          Gentle Care, <span className="text-[#c85a6a]">AI Precision</span>
+          Gentle Care, <span className="text-[#EB1367]">AI Precision</span>
         </h1>
         <p className="text-[#72645a] text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
           Securely scan clinical pregnancy reports, blood tests, and lab sheets. Receive simple summaries and map gynecologist consultations near you in seconds.
@@ -276,7 +276,7 @@ function LandingView() {
         <form onSubmit={handleSubmit} className="lg:col-span-7 bg-[#fefaf6] border border-[#f3e9df] rounded-3xl p-6 md:p-8 shadow-sm flex flex-col justify-between space-y-6">
           <div className="space-y-6">
             <h2 className="text-lg font-display font-semibold text-gray-800 border-b border-[#f3e9df] pb-3.5 flex items-center gap-2">
-              <Heart className="w-5 h-5 text-[#c85a6a] fill-[#fdf4f5]" />
+              <Heart className="w-5 h-5 text-[#EB1367] fill-[#FFF2F6]" />
               Step 1: Upload Pregnancy Report
             </h2>
 
@@ -302,14 +302,14 @@ function LandingView() {
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
                       placeholder="e.g. Boston, MA"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-[#c85a6a] focus:ring-1 focus:ring-[#c85a6a] outline-hidden transition-colors"
+                      className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 text-sm bg-white focus:border-[#EB1367] focus:ring-1 focus:ring-[#EB1367] outline-hidden transition-colors"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={detectGPSLocation}
                     disabled={isDetecting}
-                    className="shrink-0 inline-flex items-center gap-1.5 px-4.5 py-3 text-xs font-bold bg-[#fdf4f5] hover:bg-[#fae2e5] text-[#c85a6a] rounded-xl border border-[#fbdad2] transition-all shadow-xs"
+                    className="shrink-0 inline-flex items-center gap-1.5 px-4.5 py-3 text-xs font-bold bg-[#FFF2F6] hover:bg-[#FFE5EB] text-[#EB1367] rounded-xl border border-[#FFCCD8] transition-all shadow-xs"
                   >
                     <Compass className={`w-4 h-4 ${isDetecting ? "animate-spin" : ""}`} />
                     {isDetecting ? "GPS..." : "Use GPS"}
@@ -325,7 +325,7 @@ function LandingView() {
           <div className="pt-4">
             <button
               type="submit"
-              className="w-full py-4 rounded-xl font-bold bg-[#c85a6a] hover:bg-[#b04b5a] text-white shadow-md hover:shadow-lg transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 group-hover:scale-[1.01]"
+              className="w-full py-4 rounded-xl font-bold bg-[#EB1367] hover:bg-[#D0105C] text-white shadow-md hover:shadow-lg transition-all duration-300 text-sm md:text-base flex items-center justify-center gap-2 group-hover:scale-[1.01]"
             >
               Analyze Pregnancy Report Details
               <ArrowRight className="w-4 h-4" />
@@ -345,7 +345,7 @@ function LandingView() {
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent p-4 flex items-end">
-                <span className="text-white text-xs font-semibold uppercase tracking-widest bg-[#c85a6a]/90 backdrop-blur-xs px-2.5 py-1 rounded-md">
+                <span className="text-white text-xs font-semibold uppercase tracking-widest bg-[#EB1367]/90 backdrop-blur-xs px-2.5 py-1 rounded-md">
                   Empowering Motherhood
                 </span>
               </div>
@@ -354,24 +354,24 @@ function LandingView() {
             {/* Pregnancy parameter highlights */}
             <div className="p-5 w-full space-y-4">
               <h3 className="font-serif font-bold text-lg text-gray-800 flex items-center gap-2">
-                <Info className="w-4.5 h-4.5 text-[#c85a6a]" />
+                <Info className="w-4.5 h-4.5 text-[#EB1367]" />
                 Primary Biomarkers Analyzed
               </h3>
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#c85a6a]/40 transition-all duration-300">
-                  <span className="text-[11px] font-bold text-[#c85a6a] uppercase block">Hemoglobin (Hb)</span>
+                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#EB1367]/40 transition-all duration-300">
+                  <span className="text-[11px] font-bold text-[#EB1367] uppercase block">Hemoglobin (Hb)</span>
                   <span className="text-xs text-gray-500 leading-tight block mt-0.5">Scans anemia risks and oxygen levels.</span>
                 </div>
-                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#c85a6a]/40 transition-all duration-300">
-                  <span className="text-[11px] font-bold text-[#c85a6a] uppercase block">Blood Pressure</span>
+                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#EB1367]/40 transition-all duration-300">
+                  <span className="text-[11px] font-bold text-[#EB1367] uppercase block">Blood Pressure</span>
                   <span className="text-xs text-gray-500 leading-tight block mt-0.5">Identifies early signs of preeclampsia.</span>
                 </div>
-                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#c85a6a]/40 transition-all duration-300">
-                  <span className="text-[11px] font-bold text-[#c85a6a] uppercase block">Blood Glucose</span>
+                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#EB1367]/40 transition-all duration-300">
+                  <span className="text-[11px] font-bold text-[#EB1367] uppercase block">Blood Glucose</span>
                   <span className="text-xs text-gray-500 leading-tight block mt-0.5">Tracks indicators of gestational diabetes.</span>
                 </div>
-                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#c85a6a]/40 transition-all duration-300">
-                  <span className="text-[11px] font-bold text-[#c85a6a] uppercase block">Urine Proteins</span>
+                <div className="bg-[#fdf8f4] p-3 rounded-xl border border-[#f3e9df] hover:border-[#EB1367]/40 transition-all duration-300">
+                  <span className="text-[11px] font-bold text-[#EB1367] uppercase block">Urine Proteins</span>
                   <span className="text-xs text-gray-500 leading-tight block mt-0.5">Monitors renal stresses & kidney loads.</span>
                 </div>
               </div>
@@ -393,9 +393,37 @@ function ResultsView() {
   const [isLoadingReport, setIsLoadingReport] = useState(true);
   const [isLoadingDoctors, setIsLoadingDoctors] = useState(false);
   const [errorReport, setErrorReport] = useState<string | null>(null);
-  const [actionDone, setActionDone] = useState<Record<number, boolean>>({});
   const [showDoctors, setShowDoctors] = useState(false);
   const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
+
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingError, setBookingError] = useState("");
+  const [bookingSuccess, setBookingSuccess] = useState<boolean>(false);
+  const [isBooking, setIsBooking] = useState(false);
+
+  const bestDoctor = doctors.find((d) => d.aiRecommended) || doctors[0];
+
+  const handleBookAppointment = (e: React.FormEvent) => {
+    e.preventDefault();
+    setBookingError("");
+    
+    if (!bookingPhone.trim()) {
+      setBookingError("Please enter a valid phone number.");
+      return;
+    }
+    
+    const cleanPhone = bookingPhone.replace(/\D/g, "");
+    if (cleanPhone.length < 7) {
+      setBookingError("Please enter a valid phone number.");
+      return;
+    }
+    
+    setIsBooking(true);
+    setTimeout(() => {
+      setIsBooking(false);
+      setBookingSuccess(true);
+    }, 1000);
+  };
 
   // API Key instruction visual helper if keys are missing
   const GM_KEY = process.env.GOOGLE_MAPS_API_KEY || process.env.GOOGLE_MAPS_PLATFORM_KEY || "";
@@ -455,12 +483,7 @@ function ResultsView() {
     }
   };
 
-  const toggleAction = (index: number) => {
-    setActionDone((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
+
 
   if (isLoadingReport) {
     return (
@@ -526,12 +549,7 @@ function ResultsView() {
   };
 
   const riskCardInfo = getRiskExplanation(report.risk_level);
-  const actionsList = report.raw_analysis?.recommended_actions || [
-    "Share report analysis data with your primary gynecologist.",
-    "Observe blood pressure levels dynamically.",
-    "Follow hydration charts closely.",
-    "Monitor active fetal kicks daily."
-  ];
+
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-8 relative">
@@ -545,16 +563,16 @@ function ResultsView() {
       <div className="flex flex-col sm:flex-row gap-4 justify-between sm:items-center relative z-10">
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#c85a6a] transition-colors py-1 pl-1"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-gray-500 hover:text-[#EB1367] transition-colors py-1 pl-1"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Pregnancy Analyzer
         </Link>
         <div className="flex flex-wrap items-center gap-3">
           <span className="inline-flex items-center gap-1 text-xs font-semibold text-gray-500 bg-[#fefaf6] px-3 py-1.5 rounded-full border border-[#f3e9df]">
-            <Clock className="w-3.5 h-3.5 text-[#c85a6a]" /> Checked {creationDate}
+            <Clock className="w-3.5 h-3.5 text-[#EB1367]" /> Checked {creationDate}
           </span>
           <span className="inline-flex items-center gap-1 text-xs font-semibold text-gray-500 bg-[#fefaf6] px-3 py-1.5 rounded-full border border-[#f3e9df]">
-            <MapPin className="w-3.5 h-3.5 text-[#c85a6a]" /> Near {report.location}
+            <MapPin className="w-3.5 h-3.5 text-[#EB1367]" /> Near {report.location}
           </span>
         </div>
       </div>
@@ -562,7 +580,7 @@ function ResultsView() {
       {/* Patient demographics summary */}
       <div className="bg-[#fefaf6] border border-[#f3e9df] rounded-3xl p-6 md:p-8 shadow-sm flex flex-col md:flex-row gap-6 justify-between items-start md:items-center relative z-10">
         <div className="space-y-1">
-          <p className="text-xs uppercase font-bold text-[#c85a6a] tracking-wider">Analysis Result Suite</p>
+          <p className="text-xs uppercase font-bold text-[#EB1367] tracking-wider">Analysis Result Suite</p>
           <h2 className="font-serif font-bold text-3xl text-gray-800 tracking-tight">
             Patient: {report.patient_name}
           </h2>
@@ -599,7 +617,7 @@ function ResultsView() {
                 href={report.file_url}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#c85a6a] hover:text-[#b04b5a] transition-colors"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EB1367] hover:text-[#D0105C] transition-colors"
               >
                 <FileText className="w-3.5 h-3.5" /> View original medical document
               </a>
@@ -611,7 +629,7 @@ function ResultsView() {
                   setShowDoctors(true);
                   fetchDoctors(report.location, gpsCoords);
                 }}
-                className="inline-flex items-center gap-2 px-4.5 py-2.5 bg-[#c85a6a] hover:bg-[#b04b5a] text-white font-bold rounded-xl text-xs hover:shadow-md transition-all duration-200 cursor-pointer animate-pulse"
+                className="inline-flex items-center gap-2 px-4.5 py-2.5 bg-[#EB1367] hover:bg-[#D0105C] text-white font-bold rounded-xl text-xs hover:shadow-md transition-all duration-200 cursor-pointer animate-pulse"
               >
                 <Stethoscope className="w-4 h-4" />
                 🗺️ Doctors Near You
@@ -623,47 +641,17 @@ function ResultsView() {
 
       {/* Two Column details: summary + table */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative z-10">
-        {/* Left: Summary + Recommended Actions */}
+        {/* Left: Summary */}
         <div className="lg:col-span-5 space-y-6">
           {/* Plain Summary */}
           <div className="bg-[#fefaf6] border border-[#f3e9df] rounded-3xl p-6 shadow-sm space-y-4">
             <h3 className="text-base font-serif font-bold text-gray-800 flex items-center gap-2 border-b border-[#f3e9df] pb-2.5">
-              <span className="w-1.5 h-5 bg-[#c85a6a] rounded-full" />
+              <span className="w-1.5 h-5 bg-[#EB1367] rounded-full" />
               Patient-Friendly Summary
             </h3>
             <p className="text-sm md:text-normal text-[#5a4d44] leading-relaxed whitespace-pre-line font-normal">
               {report.summary}
             </p>
-          </div>
-
-          {/* Recommended actions checklist */}
-          <div className="bg-[#fefaf6] border border-[#f3e9df] rounded-3xl p-6 shadow-sm space-y-4">
-            <h3 className="text-base font-serif font-bold text-gray-800 flex items-center gap-2 border-b border-[#f3e9df] pb-2.5">
-              <PlusCircle className="w-4.5 h-4.5 text-[#c85a6a]" />
-              Prenatal Recommendations
-            </h3>
-            <p className="text-xs text-gray-400">Warm custom items formulated based on report biomarkers:</p>
-            <div className="space-y-3">
-              {actionsList.map((action: string, idx: number) => (
-                <div
-                  key={idx}
-                  onClick={() => toggleAction(idx)}
-                  className={`flex gap-3 items-start p-3 rounded-xl border transition-all cursor-pointer select-none ${
-                    actionDone[idx]
-                      ? "bg-green-50/30 border-green-200 text-gray-400 line-through"
-                      : "bg-white border-[#f3e9df] hover:border-[#c85a6a] hover:bg-[#fdf4f5]/10 text-gray-700"
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={!!actionDone[idx]}
-                    onChange={() => {}} // toggled on container click
-                    className="w-4 h-4 mt-0.5 accent-green-600 shrink-0 cursor-pointer rounded-sm"
-                  />
-                  <span className="text-xs md:text-sm leading-normal font-medium">{action}</span>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -672,10 +660,10 @@ function ResultsView() {
           <div className="bg-[#fefaf6] border border-[#f3e9df] rounded-3xl p-6 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-[#f3e9df] pb-3">
               <h3 className="text-base font-serif font-bold text-gray-800 flex items-center gap-2">
-                <FileText className="w-4.5 h-4.5 text-[#c85a6a]" />
+                <FileText className="w-4.5 h-4.5 text-[#EB1367]" />
                 Laboratory Bio-Markers Extracted
               </h3>
-              <span className="text-xs text-gray-400 font-semibold uppercase bg-[#fdf4f5] px-2.5 py-1 border border-[#fbdad2] rounded-full text-[#c85a6a]">
+              <span className="text-xs text-gray-400 font-semibold uppercase bg-[#FFF2F6] px-2.5 py-1 border border-[#FFCCD8] rounded-full text-[#EB1367]">
                 {report.indicators?.length || 0} Indicators
               </span>
             </div>
@@ -690,7 +678,7 @@ function ResultsView() {
           <div className="flex flex-col sm:flex-row gap-4 sm:items-center justify-between border-b border-[#f3e9df] pb-4">
             <div>
               <h3 className="font-serif font-bold text-xl text-gray-800 tracking-tight flex items-center gap-2">
-                <Stethoscope className="w-5.5 h-5.5 text-[#c85a6a]" /> Nearby Gynecologists & Prenatal Clinics
+                <Stethoscope className="w-5.5 h-5.5 text-[#EB1367]" /> Nearby Gynecologists & Prenatal Clinics
               </h3>
               <p className="text-xs md:text-sm text-gray-500 mt-1">
                 <span className="text-amber-700 font-semibold bg-amber-50 px-2 py-0.5 border border-amber-100 rounded-md">Priority checkups suggested.</span>
@@ -701,7 +689,7 @@ function ResultsView() {
             <button
               onClick={() => fetchDoctors(report.location, gpsCoords)}
               disabled={isLoadingDoctors}
-              className="shrink-0 inline-flex items-center justify-center px-4 py-2 text-xs font-bold bg-[#fdf4f5] hover:bg-[#fae2e5] text-[#c85a6a] border border-[#fbdad2] rounded-xl transition-colors cursor-pointer"
+              className="shrink-0 inline-flex items-center justify-center px-4 py-2 text-xs font-bold bg-[#FFF2F6] hover:bg-[#FFE5EB] text-[#EB1367] border border-[#FFCCD8] rounded-xl transition-colors cursor-pointer"
             >
               🔄 Refresh List
             </button>
@@ -711,7 +699,126 @@ function ResultsView() {
           {isLoadingDoctors ? (
             <LoadingSkeleton type="doctors" />
           ) : (
-            <DoctorsList doctors={doctors} location={report.location} />
+            <>
+              <DoctorsList doctors={doctors} location={report.location} />
+              
+              {/* Booking form for the AI recommended doctor */}
+              {doctors.length > 0 && bestDoctor && (
+                <div className="mt-8 border-t border-[#f3e9df] pt-8">
+                  <div className="max-w-2xl mx-auto bg-white border border-[#FFCCD8] rounded-3xl p-6 md:p-8 shadow-sm relative overflow-hidden">
+                    {/* Decorative background circle */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFF2F6] rounded-full -mr-8 -mt-8 -z-10 opacity-70" />
+                    
+                    <div className="flex items-start gap-4 mb-6">
+                      <div className="w-12 h-12 rounded-2xl bg-[#FFF2F6] flex items-center justify-center text-[#EB1367] shrink-0">
+                        <Calendar className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="font-serif font-bold text-lg text-gray-800">
+                          Book Appointment
+                        </h4>
+                        <p className="text-xs text-[#EB1367] font-semibold mt-0.5">
+                          ✨ Priority booking with AI-recommended specialist
+                        </p>
+                      </div>
+                    </div>
+
+                    {bookingSuccess ? (
+                      <div className="bg-green-50 border border-green-200 text-green-950 p-6 rounded-2xl space-y-3">
+                        <div className="flex items-center gap-2 text-green-700 font-bold text-sm">
+                          <span>✓</span> Appointment Booked!
+                        </div>
+                        <p className="text-xs leading-relaxed text-green-800">
+                          Appointment booked for <strong>{bestDoctor.name}</strong> (which AI marked).
+                        </p>
+                        <div className="bg-white/85 p-4 rounded-2xl border border-green-100 text-xs text-gray-700 space-y-1.5 shadow-sm">
+                          <div>👤 <strong>Patient Name:</strong> {report.patient_name}</div>
+                          <div>🎂 <strong>Age:</strong> {report.age} Years</div>
+                          <div>📞 <strong>Phone:</strong> {bookingPhone}</div>
+                          <div>🏥 <strong>Clinic Address:</strong> {bestDoctor.address}</div>
+                        </div>
+                        <p className="text-[11px] text-green-700 font-medium pt-1">
+                          The clinic will contact you shortly at {bookingPhone} to confirm your appointment slot.
+                        </p>
+                        <button
+                          onClick={() => {
+                            setBookingSuccess(false);
+                            setBookingPhone("");
+                          }}
+                          className="mt-2 text-xs font-bold text-[#EB1367] hover:text-[#D0105C] transition-colors cursor-pointer"
+                        >
+                          Book another appointment
+                        </button>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleBookAppointment} className="space-y-4">
+                        <div className="p-3 bg-[#FFF2F6] border border-[#FFCCD8] rounded-2xl flex items-center gap-2 mb-2">
+                          <span className="text-xs">✨</span>
+                          <p className="text-[11px] text-[#EB1367] font-semibold">
+                            Booking with AI marked doctor: <strong>{bestDoctor.name}</strong>
+                          </p>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {/* Name from report */}
+                          <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-600 flex items-center gap-1">
+                              <User className="w-3.5 h-3.5 text-gray-400" /> Patient Name
+                            </label>
+                            <input
+                              type="text"
+                              value={report.patient_name}
+                              disabled
+                              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-500 font-medium cursor-not-allowed"
+                            />
+                          </div>
+
+                          {/* Age from report */}
+                          <div className="space-y-1">
+                            <label className="text-xs font-bold text-gray-600 flex items-center gap-1">
+                              <Clock className="w-3.5 h-3.5 text-gray-400" /> Patient Age
+                            </label>
+                            <input
+                              type="text"
+                              value={`${report.age} Years`}
+                              disabled
+                              className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs text-gray-500 font-medium cursor-not-allowed"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Phone number from user */}
+                        <div className="space-y-1">
+                          <label className="text-xs font-bold text-gray-700 flex items-center gap-1">
+                            📞 Phone Number <span className="text-red-500">*</span>
+                          </label>
+                          <input
+                            type="tel"
+                            required
+                            placeholder="Enter your phone number"
+                            value={bookingPhone}
+                            onChange={(e) => setBookingPhone(e.target.value)}
+                            className="w-full px-4 py-2.5 border border-gray-200 hover:border-[#FFCCD8] focus:border-[#EB1367] focus:ring-1 focus:ring-[#EB1367]/20 outline-none rounded-xl text-xs text-gray-800 transition-all font-semibold"
+                          />
+                        </div>
+
+                        {bookingError && (
+                          <p className="text-[11px] text-red-600 font-semibold">{bookingError}</p>
+                        )}
+
+                        <button
+                          type="submit"
+                          disabled={isBooking}
+                          className="w-full inline-flex items-center justify-center px-5 py-3 bg-[#EB1367] hover:bg-[#D0105C] text-white font-bold rounded-xl text-xs shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer disabled:opacity-55 disabled:cursor-not-allowed"
+                        >
+                          {isBooking ? "Booking Appointment..." : "Book Appointment"}
+                        </button>
+                      </form>
+                    )}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </section>
       )}
@@ -794,17 +901,17 @@ function LoginView() {
       <div className="max-w-md w-full bg-[#fefaf6]/90 backdrop-blur-md border border-[#f3e9df] rounded-3xl p-8 md:p-10 shadow-lg text-center space-y-6 relative z-10">
         {/* Logo */}
         <div className="flex flex-col items-center space-y-3">
-          <div className="w-14 h-14 rounded-2xl bg-[#c85a6a] flex items-center justify-center text-white shadow-md">
+          <div className="w-14 h-14 rounded-2xl bg-[#EB1367] flex items-center justify-center text-white shadow-md">
             <Heart className="w-7 h-7 fill-white animate-pulse" />
           </div>
-          <span className="text-[10px] uppercase font-bold tracking-widest text-[#c85a6a] bg-[#fdf4f5] px-3 py-1 rounded-full border border-[#fbdad2]">
+          <span className="text-[10px] uppercase font-bold tracking-widest text-[#EB1367] bg-[#FFF2F6] px-3 py-1 rounded-full border border-[#FFCCD8]">
             PREGNANCY CARE SUITE
           </span>
         </div>
 
         <div className="space-y-1.5">
           <h1 className="font-serif font-bold text-3xl text-gray-800 tracking-tight leading-tight">
-            Welcome to <span className="text-[#c85a6a]">MaternaAI</span>
+            Welcome to <span className="text-[#EB1367]">PreCare</span>
           </h1>
           <p className="text-gray-500 text-sm leading-relaxed">
             Your secure companion for prenatal analysis and clinical report summaries.
@@ -812,15 +919,15 @@ function LoginView() {
         </div>
 
         {/* Tab switcher */}
-        <div className="flex bg-[#fdf4f5] rounded-xl p-1 border border-[#fbdad2]">
+        <div className="flex bg-[#FFF2F6] rounded-xl p-1 border border-[#FFCCD8]">
           {(["signin", "signup"] as const).map((t) => (
             <button
               key={t}
               onClick={() => { setTab(t); setError(null); setSuccessMsg(null); }}
               className={`flex-1 py-2 text-sm font-bold rounded-lg transition-all duration-200 cursor-pointer ${
                 tab === t
-                  ? "bg-white text-[#c85a6a] shadow-xs border border-[#fbdad2]"
-                  : "text-gray-500 hover:text-[#c85a6a]"
+                  ? "bg-white text-[#EB1367] shadow-xs border border-[#FFCCD8]"
+                  : "text-gray-500 hover:text-[#EB1367]"
               }`}
             >
               {t === "signin" ? "Sign In" : "Create Account"}
@@ -852,7 +959,7 @@ function LoginView() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Priya Sharma"
-                className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#c85a6a] focus:ring-1 focus:ring-[#c85a6a] outline-none transition-colors"
+                className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#EB1367] focus:ring-1 focus:ring-[#EB1367] outline-none transition-colors"
               />
             </div>
           )}
@@ -864,7 +971,7 @@ function LoginView() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#c85a6a] focus:ring-1 focus:ring-[#c85a6a] outline-none transition-colors"
+              className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#EB1367] focus:ring-1 focus:ring-[#EB1367] outline-none transition-colors"
             />
           </div>
           <div>
@@ -876,13 +983,13 @@ function LoginView() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder={tab === "signup" ? "Min. 6 characters" : "Your password"}
-              className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#c85a6a] focus:ring-1 focus:ring-[#c85a6a] outline-none transition-colors"
+              className="w-full px-4 py-3 rounded-xl border border-[#f3e9df] bg-white text-sm focus:border-[#EB1367] focus:ring-1 focus:ring-[#EB1367] outline-none transition-colors"
             />
           </div>
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3.5 rounded-xl font-bold bg-[#c85a6a] hover:bg-[#b04b5a] text-white shadow-sm hover:shadow-md transition-all duration-200 text-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+            className="w-full py-3.5 rounded-xl font-bold bg-[#EB1367] hover:bg-[#D0105C] text-white shadow-sm hover:shadow-md transition-all duration-200 text-sm flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
           >
             {isLoading ? (
               <div className="w-5 h-5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
@@ -904,10 +1011,10 @@ function LoginView() {
         <button
           onClick={handleGoogleSignIn}
           disabled={isGoogleLoading}
-          className="w-full py-3.5 px-4 rounded-xl border border-[#f3e9df] hover:border-[#c85a6a]/40 bg-white hover:bg-[#fdf4f5]/50 shadow-xs hover:shadow-md transition-all duration-300 font-semibold text-gray-700 text-sm flex items-center justify-center gap-3 cursor-pointer group"
+          className="w-full py-3.5 px-4 rounded-xl border border-[#f3e9df] hover:border-[#EB1367]/40 bg-white hover:bg-[#FFF2F6]/50 shadow-xs hover:shadow-md transition-all duration-300 font-semibold text-gray-700 text-sm flex items-center justify-center gap-3 cursor-pointer group"
         >
           {isGoogleLoading ? (
-            <div className="w-5 h-5 rounded-full border-2 border-gray-200 border-t-[#c85a6a] animate-spin" />
+            <div className="w-5 h-5 rounded-full border-2 border-gray-200 border-t-[#EB1367] animate-spin" />
           ) : (
             <svg className="w-5 h-5 group-hover:scale-105 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <g>
@@ -962,8 +1069,8 @@ export default function App() {
     return (
       <div className="min-h-screen bg-[#fdf8f4] flex items-center justify-center">
         <div className="relative">
-          <div className="w-12 h-12 rounded-full border-4 border-[#fdf4f5] border-t-[#c85a6a] animate-spin" />
-          <Heart className="w-5 h-5 text-[#c85a6a] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fill-current animate-pulse" />
+          <div className="w-12 h-12 rounded-full border-4 border-[#FFF2F6] border-t-[#EB1367] animate-spin" />
+          <Heart className="w-5 h-5 text-[#EB1367] absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 fill-current animate-pulse" />
         </div>
       </div>
     );
@@ -989,11 +1096,11 @@ export default function App() {
         {/* humble footer */}
         <footer className="bg-[#fefaf6] border-t border-[#f3e9df] py-6 text-center text-xs text-gray-500">
           <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
-            <p>© 2026 MaternaAI. Secure HIPAA Pregnancy Care Platform.</p>
+            <p>© 2026 PreCare. Secure HIPAA Pregnancy Care Platform.</p>
             <div className="flex gap-4">
-              <span className="hover:text-[#c85a6a] cursor-pointer">Patient Privacy Guidelines</span>
+              <span className="hover:text-[#EB1367] cursor-pointer">Patient Privacy Guidelines</span>
               <span>•</span>
-              <span className="hover:text-[#c85a6a] cursor-pointer">Terms of Medical Service</span>
+              <span className="hover:text-[#EB1367] cursor-pointer">Terms of Medical Service</span>
             </div>
           </div>
         </footer>

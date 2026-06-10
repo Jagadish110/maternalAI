@@ -53,7 +53,7 @@ export default function LoadingSkeleton({ type }: SkeletonProps) {
         <div className="absolute inset-0 rounded-full border-4 border-blue-600 border-t-transparent animate-spin" />
       </div>
       <div className="max-w-md space-y-2">
-        <h3 className="text-lg font-semibold text-gray-800 animate-pulse">Analyzing with MaternaAI...</h3>
+        <h3 className="text-lg font-semibold text-gray-800 animate-pulse">Analyzing with PreCare...</h3>
         <p className="text-sm text-gray-500">
           Our specialized pregnancy AI engine is processing health metrics, blood indices, and pregnancy parameter biomarkers. This will take just a moment.
         </p>

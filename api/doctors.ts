@@ -79,7 +79,7 @@ async function generateContentWithRetry(params: any, maxRetries = 3): Promise<an
 function getMockDoctors(city: string) {
   return [
     {
-      name: "Dr. Evelyn Ross, MD (Materna Care)",
+      name: "Dr. Evelyn Ross, MD (PreCare)",
       rating: 4.8,
       user_ratings_total: 124,
       address: `102 Oakwood Medical Center, ${city}`,
@@ -159,7 +159,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           }
         } else {
           const geocodeUrl = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1`;
-          const geoRes = await fetch(geocodeUrl, { headers: { "User-Agent": "MaternaAI/1.0" } });
+          const geoRes = await fetch(geocodeUrl, { headers: { "User-Agent": "PreCare/1.0" } });
           if (geoRes.ok) {
             const geoData = await geoRes.json();
             if (geoData?.length > 0) { lat = geoData[0].lat; lon = geoData[0].lon; }
