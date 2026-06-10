@@ -8,20 +8,25 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { createClient } from "@supabase/supabase-js";
 import mammoth from "mammoth";
 
-// Ensure data directory exists
+// Ensure data directory exists (best-effort — may fail on read-only filesystems like Vercel)
 const DATA_DIR = path.join(process.cwd(), "data");
 const REPORTS_FILE = path.join(DATA_DIR, "reports.json");
 const UPLOADS_DIR = path.join(DATA_DIR, "uploads");
 
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
-}
-if (!fs.existsSync(REPORTS_FILE)) {
-  fs.writeFileSync(REPORTS_FILE, JSON.stringify([], null, 2), "utf-8");
-}
+// In-memory fallback cache for production environments with read-only filesystems (e.g. Vercel)
+// Reports stored here survive within a single server instance / warm lambda invocation
+const inMemoryReports: Map<string, any> = new Map();
+const isReadOnlyFS = (() => {
+  try {
+    if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+    if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+    if (!fs.existsSync(REPORTS_FILE)) fs.writeFileSync(REPORTS_FILE, JSON.stringify([], null, 2), "utf-8");
+    return false;
+  } catch {
+    console.warn("[Storage] Filesystem is read-only (Vercel/serverless). Using in-memory + Supabase only.");
+    return true;
+  }
+})();
 
 // Multer setup for memory storage
 const upload = multer({
@@ -34,9 +39,18 @@ const upload = multer({
 // Lazy initialization of Supabase
 function getSupabaseClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+  const key = serviceKey || anonKey;
   if (!url || !key) {
     console.log("Supabase credentials not fully configured. Using local JSON store.");
+    return null;
+  }
+  // If service role key is identical to the anon key, it means it's misconfigured.
+  // The anon key lacks write permissions to unconfigured tables — skip Supabase writes.
+  if (serviceKey && anonKey && serviceKey === anonKey) {
+    console.warn("SUPABASE_SERVICE_ROLE_KEY appears to equal the anon key — using local store to avoid NOT_FOUND errors.");
+    console.warn("To enable Supabase: set SUPABASE_SERVICE_ROLE_KEY to your actual service role key from the Supabase dashboard.");
     return null;
   }
   try {
@@ -71,20 +85,28 @@ function withTimeout<T>(promise: Promise<T> | any, timeoutMs: number): Promise<T
   });
 }
 
-// Helper to save report locally
+// Helper to save report locally (with in-memory fallback for read-only environments)
 function saveReportLocally(report: any) {
+  // Always keep in-memory copy
+  inMemoryReports.set(report.id, report);
+  if (isReadOnlyFS) return; // skip disk write on Vercel / read-only FS
   try {
     const data = fs.readFileSync(REPORTS_FILE, "utf-8");
     const reports = JSON.parse(data);
-    reports.push(report);
+    // Avoid duplicates
+    const idx = reports.findIndex((r: any) => r.id === report.id);
+    if (idx >= 0) reports[idx] = report; else reports.push(report);
     fs.writeFileSync(REPORTS_FILE, JSON.stringify(reports, null, 2), "utf-8");
   } catch (err) {
-    console.error("Error saving report locally:", err);
+    console.warn("[Storage] Local file write failed (report kept in memory):", err);
   }
 }
 
-// Helper to get reports locally
+// Helper to get reports locally (checks in-memory first, then disk)
 function getReportLocally(id: string) {
+  // Check in-memory cache first (fast, works on Vercel)
+  if (inMemoryReports.has(id)) return inMemoryReports.get(id);
+  if (isReadOnlyFS) return null;
   try {
     const data = fs.readFileSync(REPORTS_FILE, "utf-8");
     const reports = JSON.parse(data);
@@ -175,7 +197,7 @@ async function generateContentWithRetry(ai: any, params: any, maxRetries = 3): P
             { role: "user", content: promptText }
           ],
           temperature: 0.1,
-          max_tokens: 2048
+          max_tokens: 4096
         };
 
         // If JSON is requested, pass response_format (supported by modern Llama models on NVIDIA NIM)
@@ -409,6 +431,8 @@ Return everything formatted as a validated JSON object.`;
       };
 
       // 3. Save to database / local store
+      // NOTE: Always use local fallback on any error — never let DB failures propagate to the API response.
+      let savedToSupabase = false;
       if (supabase) {
         try {
           const insertPromise = supabase
@@ -426,22 +450,35 @@ Return everything formatted as a validated JSON object.`;
               created_at: newReport.created_at
             }) as any;
 
-          const { error: dbError } = await withTimeout(insertPromise, 3000) as any;
+          const result = await withTimeout(insertPromise, 3000).catch((err: any) => {
+            // Catch any rejection from withTimeout (timeout or supabase network error)
+            return { error: err };
+          }) as any;
 
+          const dbError = result?.error;
           if (dbError) {
-            // Supabase DB errors (table NOT_FOUND, RLS, etc.) — always fall back to local
+            // Supabase DB errors (table NOT_FOUND, RLS, missing table, etc.) — always fall back to local
+            const errCode = typeof dbError === "object" ? (dbError.code || "") : "";
             const errMsg = typeof dbError === "object" ? (dbError.message || dbError.code || JSON.stringify(dbError)) : String(dbError);
-            console.error("Supabase DB save error (falling back to local):", errMsg);
+            console.error(`Supabase DB save error [${errCode}] (falling back to local):`, errMsg);
             saveReportLocally(newReport);
           } else {
             console.log("Report saved successfully in Supabase.");
+            savedToSupabase = true;
           }
         } catch (dbEx: any) {
-          console.error("Database save timed out or failed, using local fallback instead:", dbEx.message || dbEx);
+          // Belt-and-suspenders: catch anything that escapes above
+          console.error("Database save exception, using local fallback:", dbEx?.message || String(dbEx));
           saveReportLocally(newReport);
         }
       } else {
         saveReportLocally(newReport);
+      }
+
+      // Also always save locally as a redundant backup when Supabase is used
+      // so reports are retrievable even if Supabase read fails later
+      if (savedToSupabase) {
+        try { saveReportLocally(newReport); } catch (_) { /* best-effort */ }
       }
 
       return res.json({

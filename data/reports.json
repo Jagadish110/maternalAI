@@ -670,5 +670,136 @@
     },
     "file_url": "https://jpdjvfphwsjeiqwfzkcl.supabase.co/storage/v1/object/public/pregnancy-reports/1781052547221-hb5mfcluy-Priya_Sharma_Pregnancy_Report.docx",
     "created_at": "2026-06-10T00:49:17.881Z"
+  },
+  {
+    "id": "93lcma16jbs6h4w5aqnyue",
+    "patient_name": "Patient",
+    "age": 28,
+    "location": "Chennai, TN",
+    "risk_level": "LOW",
+    "summary": "No summary generated.",
+    "indicators": [],
+    "raw_analysis": {
+      "patient_name": "Patient",
+      "patient_age": 28,
+      "key_health_indicators": {},
+      "abnormal_values": [],
+      "risk_level": "LOW",
+      "plain_language_summary": "The provided text does not contain any information related to a patient's health or pregnancy. It appears to be a patent description for a wearable smart backpack with an integrated automatic umbrella.",
+      "recommended_actions": "No actions recommended as the text does not pertain to a patient's health or pregnancy."
+    },
+    "file_url": "/api/uploads/1781056531842-q8fa16pb1-Format_draft_192211436 (1).docx",
+    "created_at": "2026-06-10T01:55:50.062Z"
+  },
+  {
+    "id": "hd7k1dsle5l14g7d4sin",
+    "patient_name": "Patient",
+    "age": 28,
+    "location": "Chennai, TN",
+    "risk_level": "LOW",
+    "summary": "No summary generated.",
+    "indicators": [],
+    "raw_analysis": {
+      "patient_name": "Patient",
+      "patient_age": 28,
+      "key_health_indicators": {},
+      "abnormal_values": [],
+      "risk_level": "LOW",
+      "plain_language_summary": "No pregnancy-related information found in the provided text.",
+      "recommended_actions": "Please provide a valid pregnancy report for evaluation."
+    },
+    "file_url": "/api/uploads/1781056666082-kx9l2dz4c-janardhan patent (1).docx",
+    "created_at": "2026-06-10T01:57:58.223Z"
+  },
+  {
+    "id": "s9atnhghxxz42rhowi0z",
+    "patient_name": "Patient",
+    "age": 28,
+    "location": "Chennai, TN",
+    "risk_level": "LOW",
+    "summary": "No summary generated.",
+    "indicators": [],
+    "raw_analysis": {
+      "patient_name": "Patient",
+      "patient_age": 28,
+      "key_health_indicators": {},
+      "abnormal_values": [],
+      "risk_level": "LOW",
+      "plain_language_summary": "No pregnancy-related information found in the provided text.",
+      "recommended_actions": "No actions recommended as the provided text does not contain any pregnancy-related information."
+    },
+    "file_url": "/api/uploads/1781057119949-ye2e0jmhd-janardhan patent (1).docx",
+    "created_at": "2026-06-10T02:05:37.850Z"
+  },
+  {
+    "id": "tdeuiolfryai5rn8nvpdvr",
+    "patient_name": "Patient",
+    "age": 28,
+    "location": "Chennai, TN",
+    "risk_level": "LOW",
+    "summary": "No summary generated.",
+    "indicators": [],
+    "raw_analysis": {
+      "patient_name": "Patient",
+      "patient_age": 28,
+      "key_health_indicators": {},
+      "abnormal_values": [],
+      "risk_level": "LOW",
+      "plain_language_summary": "No pregnancy-related information found in the provided text.",
+      "recommended_actions": "Please provide a valid pregnancy report for evaluation."
+    },
+    "file_url": "/api/uploads/1781057304755-d70uwe02d-janardhan patent (1).docx",
+    "created_at": "2026-06-10T02:08:26.863Z"
+  },
+  {
+    "id": "mvwt2cxouo7giwrm03w0v",
+    "patient_name": "Priya Sharma",
+    "age": 28,
+    "location": "Chennai, TN",
+    "risk_level": "HIGH",
+    "summary": "No summary generated.",
+    "indicators": [],
+    "raw_analysis": {
+      "patient_name": "Priya Sharma",
+      "patient_age": 26,
+      "key_health_indicators": {
+        "hemoglobin": 9.2,
+        "blood_pressure": "148/96 mmHg",
+        "blood_sugar_fasting": 118,
+        "blood_sugar_pp": 162,
+        "pulse_rate": 88,
+        "temperature": 98.6,
+        "weight": 68,
+        "weight_gain": 11,
+        "platelet_count": 1.8,
+        "tsh": 3.2,
+        "urine_protein": "++ (Moderate)",
+        "urine_sugar": "+ (Trace)",
+        "fetal_weight": 1.1,
+        "amniotic_fluid": "Adequate",
+        "placenta": "Posterior, Grade I",
+        "fetal_heart_rate": 142
+      },
+      "abnormal_values": [
+        "Blood Pressure: 148/96 mmHg (ABNORMAL)",
+        "Hemoglobin: 9.2 g/dL (LOW)",
+        "Blood Sugar (Fasting): 118 mg/dL (HIGH)",
+        "Blood Sugar (PP): 162 mg/dL (HIGH)",
+        "Urine Protein: ++ (Moderate) (ABNORMAL)",
+        "Urine Sugar: + (Trace) (ABNORMAL)",
+        "TSH: 3.2 mIU/L (BORDERLINE)"
+      ],
+      "risk_level": "HIGH",
+      "plain_language_summary": "Priya Sharma is 26 years old and 28 weeks pregnant. Her blood pressure is high, which may indicate gestational hypertension. She also has high blood sugar levels, indicating gestational diabetes, and low hemoglobin levels, indicating mild anemia. There is protein in her urine, which requires close monitoring for pre-eclampsia. The fetal weight is slightly low, but the amniotic fluid and placenta are normal.",
+      "recommended_actions": [
+        "Take Iron + Folic Acid tablets twice daily",
+        "Take Calcium supplement once daily",
+        "Take Low dose Aspirin 75mg once daily for blood pressure management",
+        "Follow dietary modifications for blood sugar control",
+        "Schedule a follow-up visit within 2 weeks"
+      ]
+    },
+    "file_url": "/api/uploads/1781057449421-t9t7ylbkb-Priya_Sharma_Pregnancy_Report.docx",
+    "created_at": "2026-06-10T02:11:44.056Z"
   }
 ]
